@@ -6,7 +6,8 @@ var app = express();
 app.use(morgan('combined'));
 
 
-var content = { 
+var articles = { 
+    'article-one' :{
     title: 'article one | rohit thilakan',
     heaading: 'article one',
     date: 'feb 12, 2017',
@@ -24,7 +25,46 @@ var content = {
     </p>
     `
     
-    };
+    },
+    'article-two' : { 
+    
+    title: 'article two | rohit thilakan',
+    heaading: 'article two',
+    date: 'feb 12, 2017',
+    content: `  
+    <p>
+                        this here is the content in paragraph this here is the content in paragraph this here is the content in paragraph this here is the content in paragraph this here is the content in paragraph this here is the content in paragraph this here is the content in paragraph this here is the content
+    </p>
+    
+        <p>
+                        this here is the content in paragraph this here is the content in paragraph this here is the content in paragraph this here is the content in paragraph this here is the content in paragraph this here is the content in paragraph this here is the content in paragraph this here is the content
+    </p>
+    
+        <p>
+                        this here is the content in paragraph this here is the content in paragraph this here is the content in paragraph this here is the content in paragraph this here is the content in paragraph this here is the content in paragraph this here is the content in paragraph this here is the content
+    </p>
+    `},
+    'article-three' :{
+         title: 'article three | rohit thilakan',
+    heaading: 'article three',
+    date: 'feb 12, 2017',
+    content: `  
+    <p>
+                        this here is the content in paragraph this here is the content in paragraph this here is the content in paragraph this here is the content in paragraph this here is the content in paragraph this here is the content in paragraph this here is the content in paragraph this here is the content
+    </p>
+    
+        <p>
+                        this here is the content in paragraph this here is the content in paragraph this here is the content in paragraph this here is the content in paragraph this here is the content in paragraph this here is the content in paragraph this here is the content in paragraph this here is the content
+    </p>
+    
+        <p>
+                        this here is the content in paragraph this here is the content in paragraph this here is the content in paragraph this here is the content in paragraph this here is the content in paragraph this here is the content in paragraph this here is the content in paragraph this here is the content
+    </p>
+    `
+    }
+};
+    
+    
     function createTemplate (data) {
         var title = data.title;
         var date = data.date;
@@ -70,17 +110,11 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
 
-app.get('/article-one',function(req, res) {
-  res.send(createTemplate(articleone));
+app.get('/:articlename',function(req, res) {
+  var articlename = req.params.articlename;
+  res.send(createTemplate(articles[articlename]));
 });
 
-app.get('/article-two',function(req, res) {
-    res.sendFile(path.join(__dirname, 'ui', 'article-two.html'));
-});
-
-app.get('/article-three',function(req, res) {
-    res.sendFile(path.join(__dirname, 'ui', 'article-three.html'));
-});
 
 
 app.get('/ui/style.css', function (req, res) {
